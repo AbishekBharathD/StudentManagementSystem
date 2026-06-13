@@ -4,6 +4,10 @@ package com.studentMS.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import jakarta.persistence.Cacheable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
@@ -11,16 +15,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
 @Entity
+@Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY)
 public class Student {
 	
 	@Id
 	private Integer id;
 	private String name;
-	@ManyToMany(mappedBy="students")
-	private List<Course> courses = new ArrayList<>();
-	
-	
-	
 	public Integer getId() {
 		return id;
 	}
@@ -32,12 +33,6 @@ public class Student {
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public List<Course> getCourses() {
-		return courses;
-	}
-	public void setCourses(List<Course> courses) {
-		this.courses = courses;
 	}
 	@Override
 	public String toString() {

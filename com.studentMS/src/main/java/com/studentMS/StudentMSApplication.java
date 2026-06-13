@@ -16,38 +16,40 @@ public class StudentMSApplication {
 
 	public static void main(String[] args) {
 		
-		Department dept = new Department();
-		dept.setId(104);
-		dept.setDeptName("CSE");
-		
-		Staff s1 = new Staff();
-		s1.setId(1);
-		s1.setName("Ram");
-		s1.setDept(dept);
-		
-		Staff s2 = new Staff();
-		s2.setId(2);
-		s2.setName("Dhanush");
-		s2.setDept(dept);
-		
-		dept.getStaffs().add(s1);
-		dept.getStaffs().add(s2);
+//		Student s = new Student();
+//		s.setId(1);
+//		s.setName("John");
 		
 		Configuration config = new Configuration().configure();
 		SessionFactory sessionFactory = config.buildSessionFactory();
-		Session session = sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
+		Session session1 = sessionFactory.openSession();
+		Transaction tx1 = session1.beginTransaction();
 		
-		session.save(dept);
+//		session1.save(s);
 		
-		Department dept1 = session.get(Department.class, 104);
+		//First-Level Caching
 		
-		tx.commit();
+		Student s1 = session1.get(Student.class, 1);
+		Student s2 = session1.get(Student.class, 1);
 		
-		System.out.println(dept1);
+		tx1.commit();
 		
+		session1.close();
 		
-		session.close();
+		//Second-Level Caching
+		
+		Session session2 = sessionFactory.openSession();
+		Transaction tx2 = session2.beginTransaction();
+		
+		Student s3 = session2.get(Student.class, 1);
+		
+		tx2.commit();
+		
+		System.out.println(s1);
+		System.out.println(s2);
+		System.out.println(s3);
+		
+		session2.close();
 		
 	}
 	
