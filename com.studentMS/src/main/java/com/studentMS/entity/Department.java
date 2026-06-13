@@ -3,7 +3,9 @@ package com.studentMS.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
@@ -14,8 +16,8 @@ public class Department {
 	private Integer id;
 	private String deptName;
 	
-	@OneToMany(mappedBy="dept")
-	private List<Student> students = new ArrayList<>();
+	@OneToMany(mappedBy="dept", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	private List<Staff> staffs = new ArrayList<>();
 
 	public Integer getId() {
 		return id;
@@ -33,17 +35,17 @@ public class Department {
 		this.deptName = deptName;
 	}
 
-	public List<Student> getStudents() {
-		return students;
+	public List<Staff> getStaffs() {
+		return staffs;
 	}
 
-	public void setStudents(List<Student> students) {
-		this.students = students;
+	public void setStaffs(List<Staff> staffs) {
+		this.staffs = staffs;
 	}
 
 	@Override
 	public String toString() {
-		return "Department [id=" + id + ", deptName=" + deptName + "]";
+		return "Department [id=" + id + ", deptName=" + deptName + ", staffs=" + staffs + "]";
 	}
 
 }
