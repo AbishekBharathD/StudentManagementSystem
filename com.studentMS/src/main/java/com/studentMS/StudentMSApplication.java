@@ -7,35 +7,47 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import com.studentMS.entity.Address;
+import com.studentMS.entity.Department;
 import com.studentMS.entity.Student;
 
 public class StudentMSApplication {
 
 	public static void main(String[] args) {
 		
-		Address address = new Address();
-		address.setAddressId(101);
-		address.setCountry("India");
-		address.setState("Tamil Nadu");
-		address.setCity("Chennai");
-		address.setHouseAddress("274 Kumaran Nagar Vellacherry");
-		address.setPincode(600221);
-		
 		Student john = new Student();
 		john.setId(1);
 		john.setName("John S");
 		john.setPhone("9080560518");
 		john.setEmail("abishek22092004@gmail.com");
-		john.setAddress(address);
+		
+		Student james = new Student();
+		james.setId(2);
+		james.setName("James S");
+		james.setPhone("9080560777");
+		james.setEmail("abi2209s@gmail.com");
+		
+		Department dept = new Department();
+		dept.setId(104);
+		dept.setDeptName("CSE");
+		
+		john.setDept(dept);
+		james.setDept(dept);
+		
+		dept.getStudents().add(john);
+		dept.getStudents().add(james);
 		
 		Configuration config = new Configuration().configure();
 		SessionFactory sessionFactory = config.buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		
 		Transaction tx = session.beginTransaction();
-		session.persist(address);
+		session.persist(dept);
 		session.persist(john);
+		session.persist(james);
+		Department d1 = session.get(Department.class, 104);
 		tx.commit();
+		
+		System.out.println(d1);
 		
 		session.close();
 		

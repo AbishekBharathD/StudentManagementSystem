@@ -3,6 +3,7 @@ package com.studentMS.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -14,8 +15,8 @@ public class Student {
 	private String phone;
 	private String email;
 	
-	@OneToOne
-	private Address address;
+	@ManyToOne
+	private Department dept;
 	
 	public Integer getId() {
 		return id;
@@ -41,17 +42,16 @@ public class Student {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Address getAddress() {
-		return address;
+	public Department getDept() {
+		return dept;
 	}
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setDept(Department dept) {
+		this.dept = dept;
 	}
 	
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", name=" + name + ", phone=" + phone + ", email=" + email + ", address=" + address
-				+ "]";
+		return "Student [id=" + id + ", name=" + name + ", phone=" + phone + ", email=" + email + "]";
 	}
 
 }
