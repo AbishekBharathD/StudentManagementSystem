@@ -1,60 +1,57 @@
 package com.studentMS.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.OneToOne;
 
 @Entity
-@Table(name="student_table")
 public class Student {
 	
 	@Id
-	private Long id;
+	private Integer id;
+	private String name;
+	private String phone;
+	private String email;
 	
-	@Embedded
-	private StudentName name;
+	@OneToOne
+	private Address address;
 	
-	@Column(unique=true, length=10)
-	private String ph;
-	private Integer age;
-	
-	public Long getId() {
+	public Integer getId() {
 		return id;
 	}
-	
-	public void setId(Long id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	public StudentName getName() {
+	public String getName() {
 		return name;
 	}
-
-	public void setName(StudentName name) {
+	public void setName(String name) {
 		this.name = name;
 	}
-
-	public String getPh() {
-		return ph;
+	public String getPhone() {
+		return phone;
 	}
-
-	public void setPh(String ph) {
-		this.ph = ph;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
-
-	public Integer getAge() {
-		return age;
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public Address getAddress() {
+		return address;
+	}
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 	
-	public void setAge(Integer age) {
-		this.age = age;
-	}
-
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", name=" + name + ", ph=" + ph + ", age=" + age + "]";
+		return "Student [id=" + id + ", name=" + name + ", phone=" + phone + ", email=" + email + ", address=" + address
+				+ "]";
 	}
 
 }

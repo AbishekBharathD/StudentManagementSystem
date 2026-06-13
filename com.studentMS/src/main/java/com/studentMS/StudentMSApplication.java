@@ -6,36 +6,36 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import com.studentMS.entity.Address;
 import com.studentMS.entity.Student;
-import com.studentMS.entity.StudentName;
 
 public class StudentMSApplication {
 
 	public static void main(String[] args) {
 		
-		StudentName sn = new StudentName();
-		sn.setFname("James");
-		sn.setMname(null);
-		sn.setLname("P");
+		Address address = new Address();
+		address.setAddressId(101);
+		address.setCountry("India");
+		address.setState("Tamil Nadu");
+		address.setCity("Chennai");
+		address.setHouseAddress("274 Kumaran Nagar Vellacherry");
+		address.setPincode(600221);
 		
-		Student james = new Student();
-		james.setId(102L);
-		james.setName(sn);
-		james.setPh("9123557277");
-		james.setAge(22);
-		
-		Student stu1 = null;
+		Student john = new Student();
+		john.setId(1);
+		john.setName("John S");
+		john.setPhone("9080560518");
+		john.setEmail("abishek22092004@gmail.com");
+		john.setAddress(address);
 		
 		Configuration config = new Configuration().configure();
 		SessionFactory sessionFactory = config.buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		
 		Transaction tx = session.beginTransaction();
-		session.persist(james);
-		stu1 = session.get(Student.class, 102);
+		session.persist(address);
+		session.persist(john);
 		tx.commit();
-		
-		System.out.println(stu1);
 		
 		session.close();
 		
