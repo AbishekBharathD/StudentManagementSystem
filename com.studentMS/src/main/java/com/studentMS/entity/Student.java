@@ -15,13 +15,13 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
 @Entity
-@Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_ONLY)
 public class Student {
 	
 	@Id
 	private Integer id;
 	private String name;
+	private Integer mark;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -34,9 +34,16 @@ public class Student {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public Integer getMark() {
+		return mark;
+	}
+	public void setMark(Integer mark) {
+		this.mark = mark;
+	}
+	
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", name=" + name + "]";
+		return "Student [id=" + id + ", name=" + name + ", mark=" + mark + "]";
 	}
 	
 }
